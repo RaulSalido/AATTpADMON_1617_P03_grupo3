@@ -60,6 +60,16 @@ public class ObtenerDatos {
         String completName = null;
 
         //[1] PRÁCTICA 3. Punto 1.a
+        /*
+        El comando que se usa aquí es el comando "Select" con los siguientes valores para cada campo.
+        CLA--> 0x00
+        INS--> 0xA4
+        P1--> 0x04 seleccion directa de DF por nombre
+        P2--> 0x00
+        LC--> 0x0b Longitud del campo de datos
+        Data--> 
+        LE--> vacío
+        */
         byte[] command = new byte[]{(byte) 0x00, (byte) 0xa4, (byte) 0x04, (byte) 0x00, (byte) 0x0b, (byte) 0x4D, (byte) 0x61, (byte) 0x73, (byte) 0x74, (byte) 0x65, (byte) 0x72, (byte) 0x2E, (byte) 0x46, (byte) 0x69, (byte) 0x6C, (byte) 0x65};
         ResponseAPDU r = ch.transmit(new CommandAPDU(command));
         if ((byte) r.getSW() != (byte) 0x9000) {
@@ -68,6 +78,16 @@ public class ObtenerDatos {
         }
 
         //[2] PRÁCTICA 3. Punto 1.a
+        /*
+        El comando que se usa aquí es el comando "Select" con los siguientes valores para cada campo.
+        CLA--> 0x00
+        INS--> 0xA4
+        P1--> 0x00 Selecciona DF o EF por Id (data field = id)
+        P2--> 0x00
+        LC--> 0x02 Longitud del campo de datos 
+        Creo que los dos últimos valores hacen referencia al ID del fichero elemental que se esta seleccionando
+        para ello el comando tiene que tener el valor de P1=0x00 para seleccionar por ID. 
+        */
         command = new byte[]{(byte) 0x00, (byte) 0xA4, (byte) 0x00, (byte) 0x00, (byte) 0x02, (byte) 0x50, (byte) 0x15};
         r = ch.transmit(new CommandAPDU(command));
 
@@ -77,6 +97,16 @@ public class ObtenerDatos {
         }
 
         //[3] PRÁCTICA 3. Punto 1.a
+        /*
+        El comando que se usa aquí es el comando "Select" con los siguientes valores para cada campo.
+        CLA--> 0x00
+        INS--> 0xA4
+        P1--> 0x00 Selecciona DF o EF por Id (data field = id)
+        P2--> 0x00
+        LC--> 0x02 Longitud del campo de datos
+        Creo que los dos últimos valores hacen referencia al ID del fichero elemental que se esta seleccionando
+        para ello el comando tiene que tener el valor de P1=0x00 para seleccionar por ID.
+        */
         command = new byte[]{(byte) 0x00, (byte) 0xA4, (byte) 0x00, (byte) 0x00, (byte) 0x02, (byte) 0x60, (byte) 0x04};
         r = ch.transmit(new CommandAPDU(command));
 
