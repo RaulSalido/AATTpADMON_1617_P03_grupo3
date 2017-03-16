@@ -9,6 +9,7 @@ import javax.smartcardio.*;
 /**
  * La clase ObtenerDatos implementa cuatro métodos públicos que permiten obtener
  * determinados datos de los certificados de tarjetas DNIe, Izenpe y Ona.
+ * 
  *
  * @author tbc
  */
@@ -93,6 +94,11 @@ public class ObtenerDatos {
 
         do {
              //[4] PRÁCTICA 3. Punto 1.b
+             /*
+             Los valores de CLA INS y LE que se ven aqui son parte del comando "Read Binary".
+             El comando "Read Binary" devuelve en su mensaje de respuesta el contenido (o parte) de un fichero elemental transparente.
+             LE es el número de bytes a leer, si LE=0 el numero de bytes a leer es de 256.
+             */
             final byte CLA = (byte) 0x00;//Buscar qué valor poner aquí (0xFF no es el correcto)
             final byte INS = (byte) 0xB0;//Buscar qué valor poner aquí (0xFF no es el correcto)
             final byte LE = (byte) 0xFF;// Identificar qué significa este valor
