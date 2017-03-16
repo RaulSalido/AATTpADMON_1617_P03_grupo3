@@ -133,7 +133,12 @@ public class ObtenerDatos {
             final byte INS = (byte) 0xB0;//Buscar qué valor poner aquí (0xFF no es el correcto)
             final byte LE = (byte) 0xFF;// Identificar qué significa este valor
 
-            //[4] PRÁCTICA 3. Punto 1.b
+            //[5] PRÁCTICA 3. Punto 1.b
+            /*
+            P1 y P2 lo que hacen es decir hasta donde se lee el fichero en la primera lectura y a partir 
+            de esta nos dice a partir de donde debemos empezar a leer y hasta donde tenemos que llegar en
+            es lectura.
+            */
             command = new byte[]{CLA, INS, (byte) bloque/*P1*/, (byte) 0x00/*P2*/, LE};//Identificar qué hacen P1 y P2
             r = ch.transmit(new CommandAPDU(command));
 
