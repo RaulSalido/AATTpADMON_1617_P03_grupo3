@@ -139,6 +139,7 @@ public class ObtenerDatos {
             de esta nos dice a partir de donde debemos empezar a leer y hasta donde tenemos que llegar en
             esa lectura.
             
+            
             */
             command = new byte[]{CLA, INS, (byte) bloque/*P1*/, (byte) 0x00/*P2*/, LE};//Identificar qué hacen P1 y P2
             r = ch.transmit(new CommandAPDU(command));
