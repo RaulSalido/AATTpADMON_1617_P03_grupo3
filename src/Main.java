@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
         ByteArrayInputStream bais=null;
         
-        //TAREA 2. Conseguir que el método LeerNIF de ObtenerDatos devuelva el 
+        //TAREA 2. Conseguir que el método LeerNIF de ObtenerDatos devuelva  
         //         correctamente los datos de usuario 
         ObtenerDatos od = new ObtenerDatos();
         Usuario user = od.LeerNIF();
