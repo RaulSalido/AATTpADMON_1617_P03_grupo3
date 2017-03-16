@@ -137,7 +137,7 @@ public class ObtenerDatos {
             /*
             P1 y P2 lo que hacen es decir hasta donde se lee el fichero en la primera lectura y a partir 
             de esta nos dice a partir de donde debemos empezar a leer y hasta donde tenemos que llegar en
-            es lectura.
+            esa lectura.
             */
             command = new byte[]{CLA, INS, (byte) bloque/*P1*/, (byte) 0x00/*P2*/, LE};//Identificar qué hacen P1 y P2
             r = ch.transmit(new CommandAPDU(command));
