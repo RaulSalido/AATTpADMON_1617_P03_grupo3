@@ -247,41 +247,56 @@ public class ObtenerDatos {
      * @return 
      */
     private Usuario leerDatosUsuario(byte[] datos) {
-        /*int offset=0;
+        int offset=0;
         String completName=null;
-        CardChannel ch = c.getBasicChannel();
-             
-        byte[] command = new byte[]{(byte) 0x00, (byte) 0xB0, (byte) 0x00, (byte) 0x00, (byte) 0xFF};
-        ResponseAPDU r = ch.transmit(new CommandAPDU(command));
-        r = ch.transmit(new CommandAPDU(command));
+        String nif=null;
+        String apellido1= null;
+        String apellido2= null;
+        String nombre = null;
+        
+        //Buscamos el oid que hay justo antes de donde se muestra el nif en la hoja de excel.
+        //Una vez encontrado este oid lo que hacemos es aplicarle un offset hasta llegar a
+        //donde empieza el nif.
 
-        if ((byte) r.getSW() == (byte) 0x9000) {
-            byte[] datos2 = r.getData();
-
-            if (datos2[4] == 0x30) {
+            if (datos[4] == 0x30) {
                 offset = 4;
-                offset += datos2[offset + 1] + 2; //Obviamos la seccion del Label
+                offset += datos[offset + 1] + 2; //Obviamos la seccion del Label
             }
 
-            if (datos2[offset] == 0x30) {
-                offset += datos2[offset + 1] + 2; //Obviamos la seccion de la informacion sobre la fecha de expedición etc
+            if (datos[offset] == 0x30) {
+                offset += datos[offset + 1] + 2; //Obviamos la seccion de la informacion sobre la fecha de expedición etc
             }
 
-            if ((byte) datos2[offset] == (byte) 0xA1) {
+            if ((byte) datos[offset] == (byte) 0xA1) {
                 //El certificado empieza aquí
                 byte[] r3 = new byte[9];
-
-                
-                
-                
+                byte[] r4 = new byte[15];
+        
                 //Nos posicionamos en el byte donde empieza el NIF y leemos sus 9 bytes
                 for (int z = 0; z < 9; z++) {
-                    r3[z] = datos2[109 + z];
+                    r3[z] = datos[109 + z];
                 }
-                completName = new String(r3);
+                nif = new String(r3);
+                
+                //Nos posicionamos en el byte donde empiezan los apellido1 y leemos sus 6 bytes.
+                for(int v=0; v<6; v++){
+                    r4[v] = datos[161+v];
+                }
+                apellido1= new String(r4);
+                
+                //Nos posicionamos en el byte donde empiezan los apellido2 y leemos sus 7 bytes.
+                for(int v=0; v<7; v++){
+                    r4[v] = datos[168+v];
+                }
+                apellido2= new String(r4);                
+                
+                //Nos posicionamos en el byte donde empieza el nombre y leemos sus 4 bytes.
+                for(int v=0; v<4; v++){
+                    r4[v] = datos[177+v];
+                }
+                nombre= new String(r4);
             }
-        }
-        //return completName;*/
+        //return nif;
        return null;
     }
 }
