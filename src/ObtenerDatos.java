@@ -248,7 +248,7 @@ public class ObtenerDatos {
      */
     private Usuario leerDatosUsuario(byte[] datos) {
         int offset=0;
-        String completName=null;
+        //String completName=null;
         String nif=null;
         String apellido1= null;
         String apellido2= null;
@@ -270,7 +270,10 @@ public class ObtenerDatos {
             if ((byte) datos[offset] == (byte) 0xA1) {
                 //El certificado empieza aquí
                 byte[] r3 = new byte[9];
-                byte[] r4 = new byte[15];
+                byte[] r4 = new byte[6];
+                byte[] r5 = new byte[7];
+                byte[] r6 = new byte[4];
+                
         
                 //Nos posicionamos en el byte donde empieza el NIF y leemos sus 9 bytes
                 for (int z = 0; z < 9; z++) {
@@ -285,18 +288,18 @@ public class ObtenerDatos {
                 apellido1= new String(r4);
                 
                 //Nos posicionamos en el byte donde empiezan los apellido2 y leemos sus 7 bytes.
-                for(int v=0; v<7; v++){
-                    r4[v] = datos[168+v];
+                for(int w=0; w<7; w++){
+                    r5[w] = datos[168+w];
                 }
-                apellido2= new String(r4);                
+                apellido2= new String(r5);                
                 
                 //Nos posicionamos en el byte donde empieza el nombre y leemos sus 4 bytes.
-                for(int v=0; v<4; v++){
-                    r4[v] = datos[177+v];
+                for(int b=0; b<4; b++){
+                    r6[b] = datos[177+b];
                 }
-                nombre= new String(r4);
+                nombre= new String(r6);
             }
-        //return nif;
-       return null;
+            Usuario completName = new Usuario(nombre,apellido1,apellido2,nif);
+       return completName;
     }
 }
