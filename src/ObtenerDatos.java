@@ -41,6 +41,7 @@ public class ObtenerDatos {
 
             if (esDNIe(atr)) {
                 datos = leerCertificado(ch);
+                //System.out.println(datos);
                 if(datos!=null)
                     user = leerDatosUsuario(datos);
             }
@@ -87,7 +88,7 @@ public class ObtenerDatos {
         LC--> 0x02 Longitud del campo de datos 
         Creo que los dos últimos valores hacen referencia al ID del fichero elemental que se esta seleccionando
         para ello el comando tiene que tener el valor de P1=0x00 para seleccionar por ID. 
-        */
+        */       
         command = new byte[]{(byte) 0x00, (byte) 0xA4, (byte) 0x00, (byte) 0x00, (byte) 0x02, (byte) 0x50, (byte) 0x15};
         r = ch.transmit(new CommandAPDU(command));
 
@@ -106,7 +107,7 @@ public class ObtenerDatos {
         LC--> 0x02 Longitud del campo de datos
         Creo que los dos últimos valores hacen referencia al ID del fichero elemental que se esta seleccionando
         para ello el comando tiene que tener el valor de P1=0x00 para seleccionar por ID.
-        */
+        */       
         command = new byte[]{(byte) 0x00, (byte) 0xA4, (byte) 0x00, (byte) 0x00, (byte) 0x02, (byte) 0x60, (byte) 0x04};
         r = ch.transmit(new CommandAPDU(command));
 
@@ -246,6 +247,41 @@ public class ObtenerDatos {
      * @return 
      */
     private Usuario leerDatosUsuario(byte[] datos) {
+        /*int offset=0;
+        String completName=null;
+        CardChannel ch = c.getBasicChannel();
+             
+        byte[] command = new byte[]{(byte) 0x00, (byte) 0xB0, (byte) 0x00, (byte) 0x00, (byte) 0xFF};
+        ResponseAPDU r = ch.transmit(new CommandAPDU(command));
+        r = ch.transmit(new CommandAPDU(command));
+
+        if ((byte) r.getSW() == (byte) 0x9000) {
+            byte[] datos2 = r.getData();
+
+            if (datos2[4] == 0x30) {
+                offset = 4;
+                offset += datos2[offset + 1] + 2; //Obviamos la seccion del Label
+            }
+
+            if (datos2[offset] == 0x30) {
+                offset += datos2[offset + 1] + 2; //Obviamos la seccion de la informacion sobre la fecha de expedición etc
+            }
+
+            if ((byte) datos2[offset] == (byte) 0xA1) {
+                //El certificado empieza aquí
+                byte[] r3 = new byte[9];
+
+                
+                
+                
+                //Nos posicionamos en el byte donde empieza el NIF y leemos sus 9 bytes
+                for (int z = 0; z < 9; z++) {
+                    r3[z] = datos2[109 + z];
+                }
+                completName = new String(r3);
+            }
+        }
+        //return completName;*/
        return null;
     }
 }
