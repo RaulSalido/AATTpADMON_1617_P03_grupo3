@@ -26,7 +26,11 @@ public class ObtenerDatos {
 
     public ObtenerDatos() {
     }
-
+    
+    /**
+     * 
+     * @return devuelve un objeto del tipo la clase Usuario
+     */
     public Usuario LeerNIF() {
 
         Usuario user = null;
@@ -53,7 +57,14 @@ public class ObtenerDatos {
         }
         return user;
     }
-
+    
+    /**
+     * 
+     * @param ch
+     * @return
+     * @throws CardException
+     * @throws CertificateException 
+     */
     public byte[] leerCertificado(CardChannel ch) throws CardException, CertificateException {
 
 
@@ -243,8 +254,8 @@ public class ObtenerDatos {
      *   - nombre
      *   - apellidos
      *   - NIF
-     * @param datos
-     * @return 
+     * @param datos informacion obtenida anteriormente mediante la lectura del certificado en la funcion LeerNIF()
+     * @return devuelve los datos de usuario; Nombre apellido1 apellido2 DNI
      */
     private Usuario leerDatosUsuario(byte[] datos) {
         int offset=0;

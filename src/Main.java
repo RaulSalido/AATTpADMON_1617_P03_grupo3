@@ -22,6 +22,13 @@ import java.net.URL;
  */
 public class Main {
     
+    /**
+     * 
+     * @param urlpost url del recurso al que se enviaran las credenciales por POST
+     * @param username nombre de usuario
+     * @param password contraseña
+     * @return Nos devuelve la respuesta del servidor
+     */
     public static String enviarCredencialesPost(String urlpost, String username,String password) {
 
         String postparam = "usuario="+username+"&password="+password;
@@ -82,6 +89,7 @@ public class Main {
     
     /**
      * @param args the command line arguments
+     * 
      */
     public static void main(String[] args) throws Exception{
         ByteArrayInputStream bais=null;
