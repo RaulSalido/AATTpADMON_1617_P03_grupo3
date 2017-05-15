@@ -61,7 +61,7 @@ public class ObtenerDatos {
     /**
      * 
      * @param ch
-     * @return
+     * @return devuelve los datos de lectura del certificado de la tarjeta del DNI
      * @throws CardException
      * @throws CertificateException 
      */
