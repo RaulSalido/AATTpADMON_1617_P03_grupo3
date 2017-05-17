@@ -260,10 +260,16 @@ public class ObtenerDatos {
     private Usuario leerDatosUsuario(byte[] datos) {
         int offset=0;
         //String completName=null;
+        int posicion_dni0=0;
+        int posicion_nombre0 = 0;
+        int posicion_apellido0 = 0;
+        int posicion_nombe1 = 0;
         String nif=null;
         String apellido1= null;
         String apellido2= null;
         String nombre = null;
+        
+        
         
         //Buscamos el oid que hay justo antes de donde se muestra el nif en la hoja de excel.
         //Una vez encontrado este oid lo que hacemos es aplicarle un offset hasta llegar a
@@ -281,32 +287,65 @@ public class ObtenerDatos {
             if ((byte) datos[offset] == (byte) 0xA1) {
                 //El certificado empieza aquí
                 byte[] r3 = new byte[9];
-                byte[] r4 = new byte[6];
+                byte[] r4 = new byte[40];
                 byte[] r5 = new byte[7];
-                byte[] r6 = new byte[4];
+                byte[] r6 = new byte[40];
                 
+                //primero sacamos el DNI
+                for (int i=0;i<datos.length;i++){
+                    if (datos[i] == 0x06 && datos[i+1] == 0x03 && datos[i+2] == 0x55 && datos[i+3] == 0x04 && datos[i+4] == 0x05){
+                        posicion_dni0 = i+4;
+                        posicion_dni0= posicion_dni0 + 3;
+                    }
+                }
         
                 //Nos posicionamos en el byte donde empieza el NIF y leemos sus 9 bytes
                 for (int z = 0; z < 9; z++) {
-                    r3[z] = datos[109 + z];
+                    r3[z] = datos[posicion_dni0 + z];
                 }
                 nif = new String(r3);
                 
-                //Nos posicionamos en el byte donde empiezan los apellido1 y leemos sus 6 bytes.
-                for(int v=0; v<6; v++){
-                    r4[v] = datos[161+v];
-                }
-                apellido1= new String(r4);
                 
-                //Nos posicionamos en el byte donde empiezan los apellido2 y leemos sus 7 bytes.
-                for(int w=0; w<7; w++){
-                    r5[w] = datos[168+w];
+                //Ahora lo volvemos a hacer para el nombre
+                for (int i=posicion_dni0+9; i<datos.length; i++){
+                    if (datos[i] == 0x06 && datos[i+1] == 0x03 && datos[i+2] == 0x55 && datos[i+3] == 0x04 && datos[i+4] == 0x2A){
+                        posicion_nombre0 = i+4;
+                        posicion_nombre0= posicion_nombre0 + 3;
+                    }
                 }
-                apellido2= new String(r5);                
+
+                for (int i=posicion_nombre0; i<datos.length; i++){
+                    if (datos[i] == 0x06 && datos[i+1] == 0x03 && datos[i+2] == 0x55 && datos[i+3] == 0x04 && datos[i+4] == 0x03){
+                        posicion_apellido0 = i+4;
+                        posicion_apellido0= posicion_apellido0 + 3;
+                        break;
+                    }
+                }
+                posicion_nombe1 = posicion_apellido0 - 11;
+                
+                
+                //Nos posicionamos en el byte donde empiezan los apellido1 y leemos sus 6 bytes.
+                int v = 0;
+                while(true)
+                {
+                    if(datos[posicion_apellido0+v] == 0x2C){
+                        break;
+                    }
+                    r4[v] = datos[posicion_apellido0+v];
+                    v++;
+                }
+                String apellidos= new String(r4);
+                apellido1 = apellidos.split(" ")[0];
+                apellido2 = apellidos.split(" ")[1];
+                //Nos posicionamos en el byte donde empiezan los apellido2 y leemos sus 7 bytes.
+//                for(int w=0; w<7; w++){
+//                    r5[w] = datos[168+w];
+//                }
+//                apellido2= new String(r5);                
                 
                 //Nos posicionamos en el byte donde empieza el nombre y leemos sus 4 bytes.
-                for(int b=0; b<4; b++){
-                    r6[b] = datos[177+b];
+                for(int b=0; b<(posicion_nombe1-posicion_nombre0); b++){
+                    r6[b] = datos[posicion_nombre0 + b];
                 }
                 nombre= new String(r6);
             }

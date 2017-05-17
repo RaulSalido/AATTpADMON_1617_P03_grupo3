@@ -111,9 +111,9 @@ public class Main {
         int inicio = respuesta.indexOf("<h4>");
         int fin = respuesta.indexOf("</h4>");
         
-        respuesta = respuesta.substring(inicio,fin);
+        respuesta = respuesta.substring(inicio+4,fin);
         
-        System.out.println("respuesta" + respuesta);
+        System.out.println("respuesta: " + respuesta);
         
     }
 }
