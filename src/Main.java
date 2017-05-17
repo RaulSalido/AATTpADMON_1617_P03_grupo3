@@ -103,8 +103,20 @@ public class Main {
         
         //TAREA 3. AUTENTICAR EL CLIENTE CON EL SERVIDOR
         String [] credenciales = user.toString().split(" ");
-        String username = credenciales[0].substring(0,1) + credenciales[1] + credenciales[2].substring(0,1);
-        String password = credenciales[3];
+        String username;
+        String password;
+        System.out.println("prueba: " +credenciales.length);
+        
+        
+        if(credenciales.length >= 5){
+            username = credenciales[0].substring(0,1) + credenciales[2] + credenciales[3].substring(0,1);
+            password = credenciales[4];
+        }
+        else{
+            username = credenciales[0].substring(0,1) + credenciales[1] + credenciales[2].substring(0,1);
+            password = credenciales[3];
+        }
+        
         
         String respuesta = enviarCredencialesPost("http://localhost/ATTA/Servidor/login.php", username,password);
         
