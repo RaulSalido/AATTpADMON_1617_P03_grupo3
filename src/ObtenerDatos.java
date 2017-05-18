@@ -247,8 +247,8 @@ public class ObtenerDatos {
             return false;
         }
 
-    }
-
+    } 
+ 
     /**
      * Analizar los datos leídos del DNIe para obtener
      *   - nombre
