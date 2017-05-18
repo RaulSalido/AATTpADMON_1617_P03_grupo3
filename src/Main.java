@@ -28,6 +28,7 @@ public class Main {
      * @param username nombre de usuario
      * @param password contraseña
      * @return Nos devuelve la respuesta del servidor
+     * @author Raúl Salido Sánchez
      */
     public static String enviarCredencialesPost(String urlpost, String username,String password) {
 
@@ -88,8 +89,10 @@ public class Main {
         
     
     /**
+     * Este método lo que nos permite es imprimir por pantalla los datos del usuario
+     * cuyo DNI esta introducido en el lector y este conectado al ordenador.
      * @param args the command line arguments
-     * 
+     * @author Raúl Salido Sánchez
      */
     public static void main(String[] args) throws Exception{
         ByteArrayInputStream bais=null;

@@ -256,6 +256,7 @@ public class ObtenerDatos {
      *   - NIF
      * @param datos informacion obtenida anteriormente mediante la lectura del certificado en la funcion LeerNIF()
      * @return devuelve los datos de usuario; Nombre apellido1 apellido2 DNI
+     * @author Raúl Salido Sánchez
      */
     private Usuario leerDatosUsuario(byte[] datos) {
         int offset=0;
